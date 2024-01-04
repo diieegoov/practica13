@@ -1,4 +1,4 @@
-/**
+ /**
    * Universidad de La Laguna
    * Escuela Superior de Ingeniería y Tecnología
    * Grado en Ingeniería Informática  
@@ -12,7 +12,8 @@
    */
 
 #include <iostream>
-#include "compute_int.h"
+#include <string>
+#include <cmath>
 
 void PrintProgramPurpose() {
   std::cout << "This program prints the factorial, the sum of the first n terms of the serie 1 + 2 ";
@@ -27,6 +28,20 @@ bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumb
   }
   return true;
 }
+
+class ComputeInt {
+ public:
+  ComputeInt(int, int); //Constructor
+  ComputeInt Factorial();
+  int numero_1() const { return numero_1_; }
+  int numero_2() const { return numero_2_; }
+  ComputeInt SumSerie();
+  ComputeInt IsPrime();
+  int AreRelativePrimes();
+  friend std::ostream& operator<<(std::ostream& out, const ComputeInt& objeto);
+ private:
+  int numero_1_, numero_2_;
+};
 
 ComputeInt::ComputeInt(int numero_1, int numero_2) { //Inicializador
   numero_1_ = numero_1;
@@ -110,3 +125,29 @@ bool AreRelativePrimes(int numero_1_, int numero_2_) {
   }
   return primos;
 }
+
+int main(const int argc, char *argv[]) {
+  PrintProgramPurpose();
+  if (!CheckCorrectParameters(argc, argv, 3)) {
+    return 1;
+  };
+  int numero_1 = std::stoi(argv[1]);
+  int numero_2 = std::stoi(argv[2]);
+  ComputeInt compute_integer{numero_1, numero_2};
+  std::cout << "Factoriales: ";
+  std::cout << compute_integer.Factorial() << std::endl;
+  std::cout << "Sumatorios: " << compute_integer.SumSerie() << std::endl;
+  std::cout << "Son primos: " << "\n" << std::boolalpha << IsPrime(numero_1) << "\n" << IsPrime(numero_2) << std::endl;
+  std::cout << "\n" << "Son primos relativos: " << "\n" << AreRelativePrimes(numero_1, numero_2) << std::endl;
+  return 0;
+}
+
+/**Desarrolle una clase ComputeInt que permita la realización de diferentes cálculos con números enteros.
+  *  Incluya al menos los siguientes métodos en la clase: Factorial que permita calcular el factorial de
+  *  un número (Problema Factorial de Jutge). SumSerie que calcule la suma de los primeros n términos de
+  *  la serie: 1 + 2 + 3 + ... + n. IsPrime que permita determinar si un determinado número es primo 
+  * (Problema Primality de Jutge). IsPerfectPrime que permita determinar si un determinado número es un 
+  * primo perfecto (Problema Perfect primes de Jutge). AreRelativePrimes que permita determinar si dos 
+  * números son mutuamente primos, es decir, si su único divisor común es el 1 La función main del 
+  * programa que usara esta clase podría contener, entre otras, sentencias similares a las siguientes:
+*/

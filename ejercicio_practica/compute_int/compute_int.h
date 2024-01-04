@@ -14,6 +14,10 @@
 #ifndef COMPUTE_INT_H
 #define COMPUTE_INT_H
 
+void PrintProgramPurpose();
+
+bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumber);
+
 class ComputeInt {
  public:
   ComputeInt(int, int); //Constructor
@@ -22,19 +26,9 @@ class ComputeInt {
   ComputeInt Factorial();
   ComputeInt SumSerie();
   friend std::ostream& operator<<(std::ostream& out, const ComputeInt& objeto);
+  bool IsPrime(int numero_1_)
  private:
   int numero_1_, numero_2_;
 };
-
-int GetNumber1(char *argv[]) {
-  int numero_1 = std::stoi(argv[1]);
-  return numero_1;
-}
-
-int GetNumber2(char *argv[]) {
-  int numero_2 = std::stoi(argv[2]);
-  return numero_2;
-}
-
 
 #endif
